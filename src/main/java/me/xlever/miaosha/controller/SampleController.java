@@ -2,6 +2,7 @@ package me.xlever.miaosha.controller;
 
 import me.xlever.miaosha.domain.User;
 import me.xlever.miaosha.redis.RedisService;
+import me.xlever.miaosha.redis.UserKey;
 import me.xlever.miaosha.result.CodeMsg;
 import me.xlever.miaosha.result.Result;
 import me.xlever.miaosha.service.UserService;
@@ -52,22 +53,19 @@ public class SampleController {
 
     @RequestMapping("/redis/get")
     @ResponseBody
-    public Result<Long> redisGet(){
-        Long result = redisService.get("key1", Long.class);
+    public Result<User> redisGet(){
+        User result = redisService.get(UserKey.getById,""+1,User.class);
         return Result.success(result);
     }
 
     @RequestMapping("/redis/set")
     @ResponseBody
     public Result<Boolean> redisSet(){
-        boolean result = redisService.set("key2", "test");
+        User user=new User();
+        user.setId(1);
+        user.setName("111111");
+        boolean result = redisService.set(UserKey.getById,""+1, user);
         return Result.success(result);
     }
 
-    @RequestMapping("/redis/set2")
-    @ResponseBody
-    public Result<Boolean> redisSetPrex(){
-        boolean result = redisService.set("key2", "test");
-        return Result.success(result);
-    }
 }
