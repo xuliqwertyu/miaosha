@@ -40,7 +40,7 @@ public class SampleController {
     @RequestMapping("/db/get")
     @ResponseBody
     public Result<User> dbGet(){
-        User user=userService.getById(1);
+        User user= userService.getById(1);
         return Result.success(user);
     }
 
@@ -60,6 +60,13 @@ public class SampleController {
     @RequestMapping("/redis/set")
     @ResponseBody
     public Result<Boolean> redisSet(){
+        boolean result = redisService.set("key2", "test");
+        return Result.success(result);
+    }
+
+    @RequestMapping("/redis/set2")
+    @ResponseBody
+    public Result<Boolean> redisSetPrex(){
         boolean result = redisService.set("key2", "test");
         return Result.success(result);
     }
